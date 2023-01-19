@@ -22,3 +22,5 @@ pipeline {
 	echo 'Maven Build Completed'
 	}
 	}
+	}
+}
