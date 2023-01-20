@@ -13,9 +13,19 @@
   <url>http://www.example.com</url>
 
   <properties>
+    
+    <!-- JaCoCo Properties -->
+    <jacoco.version>0.8.6</jacoco.version>
+    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+    <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+    <sonar.language>java</sonar.language>
+    <java.version>11</java.version>
+    
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
+    
   </properties>
 
   <dependencies>
@@ -24,6 +34,11 @@
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jacoco</groupId> 
+      <artifactId>jacoco-maven-plugin</artifactId>
+      <version>0.8.6</version>
     </dependency>
   </dependencies>
 
@@ -69,6 +84,26 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>${jacoco.version}</version>
+          <executions>
+          <execution>
+          <id>jacoco-initialize</id>
+          <goals>
+          <goal>prepare-agent</goal>
+          </goals>
+          </execution>
+          <execution>
+          <id>jacoco-site</id>
+          <phase>package</phase>
+          <goals>
+          <goal>report</goal>
+          </goals>
+        </execution>
+        </executions>
+      </plugin>
       </plugins>
     </pluginManagement>
   </build>
