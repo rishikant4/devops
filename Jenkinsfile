@@ -29,12 +29,12 @@ pipeline {
                     echo 'Unit Testing Completed'
                 }
             }
-	}
-		post {
+	post {
                 success {
                         junit "$utest_url"
                         jacoco()
                 }
             }
+}
 }
 }
