@@ -11,6 +11,12 @@ pipeline {
 		
 	def sonar_cred = 'sonar'
         def code_analysis = 'mvn clean install sonar:sonar'
+		
+	def nex_cred = 'nexus'
+        def grp_ID = 'com.example'
+        def nex_url = '13.232.148.141:8081'
+        def nex_ver = 'nexus3'
+        def proto = 'http'
 	}
 	stages {
 	stage('Git Checkout') {
@@ -48,6 +54,31 @@ pipeline {
                         sh "${code_analysis}"
                     }
                     waitForQualityGate abortPipeline: true, credentialsId: "${sonar_cred}"
+                }
+            }
+        } 
+		stage('Upload Artifact to nexus repository') {
+            steps {
+                script {
+                    
+                    def mavenpom = readMavenPom file: 'pom.xml'
+                    def nex_repo = mavenpom.version.endsWith('SNAPSHOT') ? 'demoproject-snapshot' : 'demoproject-Release'
+                    nexusArtifactUploader artifacts: [
+                    [
+                        artifactId: 'demo',
+                        classifier: '',
+                        file: "target/demo-${mavenpom.version}.war",
+                        type: 'war'
+                    ]
+                ],
+                    credentialsId: "${env.nex_cred}",
+                    groupId: "${env.grp_ID}",
+                    nexusUrl: "${env.nex_url}",
+                    nexusVersion: "${env.nex_ver}",
+                    protocol: "${env.proto}",
+                    repository: "${nex_repo}",
+                    version: "${mavenpom.version}"
+                    echo 'Artifact uploaded to nexus repository'
                 }
             }
         } 
