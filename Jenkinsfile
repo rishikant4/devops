@@ -8,6 +8,9 @@ pipeline {
 	def mvnpackage = 'mvn clean install'
 	
 	def utest_url = 'target/surefire-reports/**/*.xml'
+		
+	def sonar_cred = 'sonar'
+        def code_analysis = 'mvn clean install sonar:sonar'
 	}
 	stages {
 	stage('Git Checkout') {
