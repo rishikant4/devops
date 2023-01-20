@@ -47,7 +47,7 @@ pipeline {
                     withSonarQubeEnv(credentialsId: "${sonar_cred}") {
                         sh "${code_analysis}"
                     }
-                    waitForQualityGate abortPipeline: false, credentialsId: "${sonar_cred}"
+                    waitForQualityGate abortPipeline: true, credentialsId: "${sonar_cred}"
                 }
             }
         } 
