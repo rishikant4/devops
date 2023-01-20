@@ -30,5 +30,11 @@ pipeline {
                 }
             }
 	}
+		post {
+                success {
+                        junit "$utest_url"
+                        jacoco()
+                }
+            }
 }
 }
