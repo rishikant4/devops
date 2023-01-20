@@ -38,5 +38,15 @@ pipeline {
                 }
             }
 }
+		 stage('Static code analysis and Quality Gate Status') {
+            steps {
+                script {
+                    withSonarQubeEnv(credentialsId: "${sonar_cred}") {
+                        sh "${code_analysis}"
+                    }
+                    waitForQualityGate abortPipeline: true, credentialsId: "${sonar_cred}"
+                }
+            }
+        } 
 }
 }
