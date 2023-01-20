@@ -22,5 +22,13 @@ pipeline {
 	echo 'Maven Build Completed'
 	}
 	}
+	stage('Unit Testing and publishing reports') {
+            steps {
+                script {
+                    sh "${env.mvntest}"
+                    echo 'Unit Testing Completed'
+                }
+            }
 	}
+}
 }
