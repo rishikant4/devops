@@ -6,6 +6,8 @@ pipeline {
 	
 	def mvntest = 'mvn test '
 	def mvnpackage = 'mvn clean install'
+	
+	def utest_url = 'target/surefire-reports/**/*.xml'
 	}
 	stages {
 	stage('Git Checkout') {
