@@ -14,7 +14,7 @@ pipeline {
 		
 	def nex_cred = 'nexus'
         def grp_ID = 'com.example'
-        def nex_url = '13.127.166.57:8081'
+        def nex_url = '13.232.159.107:8081'
         def nex_ver = 'nexus3'
         def proto = 'http'
 	}
@@ -62,7 +62,7 @@ pipeline {
                 script {
                     
                     def mavenpom = readMavenPom file: 'pom.xml'
-                    def nex_repo = mavenpom.version.endsWith('SNAPSHOT') ? 'demoproject-snapshot' : 'demoproject-Release'
+                  
                     nexusArtifactUploader artifacts: [
                     [
                         artifactId: 'demo',
@@ -76,7 +76,7 @@ pipeline {
                     nexusUrl: "${env.nex_url}",
                     nexusVersion: "${env.nex_ver}",
                     protocol: "${env.proto}",
-                    repository: "${nex_repo}",
+                    repository: 'nex_repo',
                     version: "${mavenpom.version}"
                     echo 'Artifact uploaded to nexus repository'
                 }
