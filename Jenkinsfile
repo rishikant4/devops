@@ -68,7 +68,7 @@ pipeline {
                         artifactId: 'demo',
                         classifier: '',
                         file: "target/demo-${mavenpom.version}.jar",
-                        type: 'war'
+                        type: 'jar'
                     ]
                 ],
                     credentialsId: "${env.nex_cred}",
