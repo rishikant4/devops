@@ -67,7 +67,7 @@ pipeline {
                     [
                         artifactId: 'demo',
                         classifier: '',
-                        file: "target/demo-${mavenpom.version}.war",
+                        file: "target/demo-${mavenpom.version}.jar",
                         type: 'war'
                     ]
                 ],
