@@ -3,12 +3,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
+  <!--
   <groupId>com.example</groupId>
   <artifactId>demo</artifactId>
   <version>0.0.1</version>
   <packaging>war</packaging>
   <name>demo</name>
+-->
+  <parent>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>demo</artifactId>
+ <version>0.0.1</version>
+ <relativePath/> <!-- lookup parent from repository -->
+ </parent>
+ <groupId>com.example</groupId>
+ <artifactId>demo</artifactId>
+ <version>0.0.1-SNAPSHOT</version>
+ <name>demo</name>
+ <packaging>war</packaging> 
+ <description>Demo project for Spring Boot</description>
+ <properties>
+  
 
   <url>http://www.example.com</url>
 
@@ -39,6 +54,19 @@
       <groupId>org.jacoco</groupId> 
       <artifactId>jacoco-maven-plugin</artifactId>
       <version>0.8.6</version>
+    </dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+    <groupId>org.jacoco</groupId> 
+    <artifactId>jacoco-maven-plugin</artifactId>
+    <version>0.8.6</version>
+    </dependency>
+    <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -104,6 +132,21 @@
         </execution>
         </executions>
       </plugin>
+        <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+        <execution>
+        <id>repackage</id>
+        <goals>
+        <goal>repackage</goal>
+        </goals>
+        <configuration>
+        <finalName>Uber</finalName>
+        </configuration>
+        </execution>
+        </executions>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
