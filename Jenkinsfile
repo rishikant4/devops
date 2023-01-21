@@ -19,7 +19,7 @@ pipeline {
         def proto = 'http'
 	}
 	stages {
-	stage('Git Checkout') {
+	stage('Github Checkout') {
 	steps {
 	script {
 	git branch: "${git_branch}", url: "${git_url}"
@@ -33,7 +33,7 @@ pipeline {
 	echo 'Maven Build Completed'
 	}
 	}
-	stage('Unit Testing and publishing reports') {
+	stage('Unit Test & Reports Publishing') {
             steps {
                 script {
                     sh "${env.mvntest}"
@@ -47,7 +47,7 @@ pipeline {
                 }
             }
 }
-		 stage('Static code analysis and Quality Gate Status') {
+		 stage('Static code scan & Quality Gate Status') {
             steps {
                 script {
                     withSonarQubeEnv(credentialsId: "${sonar_cred}") {
@@ -57,7 +57,7 @@ pipeline {
                 }
             }
         } 
-		stage('Upload Artifact to nexus repository') {
+		stage('Upload Artifact to nexus') {
             steps {
                 script {
                     
