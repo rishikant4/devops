@@ -71,17 +71,6 @@
         - { from: '<Valve className="org.apache.catalina.valves.RemoteAddrValve"', To: '<!-- <Valve className="org.apache.catalina.valves.RemoteAddrValve"' }
         - { from: 'allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />', To: 'allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->' }
 
-- name: update context.xml
-  become: true
-  lineinfile:
-       path: /opt/tomcat/apache-tomcat-10.0.8/webapps/host-manager/META-INF/context.xml
-       regexp: '{{item.from}}'
-       line: '{{item.To}}'
-
-       with_items:
-        - { from: '<Valve className="org.apache.catalina.valves.RemoteAddrValve"', To: '<!--<Valve className="org.apache.catalina.valves.RemoteAddrValve"'}
-        - { from: 'allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />', To: 'allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->'}
-
 - name: Creating a service file
   become: true
   copy:
