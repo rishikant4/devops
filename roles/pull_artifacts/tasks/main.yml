@@ -1,5 +1,5 @@
 - name: Pull artifacts from nexus
   become: true
   get_url:
-     url: http://35.76.123.24:8081/repository/tomcat-SNAPSHOT/com/example/helloworld/1.0-SNAPSHOT/helloworld-1.0-20221227.115435-28.war
+     url: http://43.204.111.29:8081/repository/nex_repo/com/example/demo/0.0.1-SNAPSHOT/maven-metadata.xml.sha1
      dest: /opt/tomcat/apache-tomcat-10.0.8/webapps
