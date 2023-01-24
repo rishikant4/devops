@@ -1,50 +1,50 @@
 - name: Update the System Packages
-      become: yes
-      apt:
+  become: true
+  apt:
         upgrade: yes
         update_cache: yes
 
-    - name: Install JAVA
-      become: yes
-      apt:
+- name: Install JAVA
+  become: true
+  apt:
         name: openjdk-11-jdk
         state: present
 
 
-    - name: Create a Tomcat Directory
-      become: yes
-      file:
+- name: Create a Tomcat Directory
+  become: true
+  file:
         path: /opt/tomcat
         owner: jenkins
         group: jenkins
         mode: 777
         recurse: yes
 
-    - name: download tomcat
-      become: yes
-      get_url:
+- name: download tomcat
+  become: true
+  get_url:
         url: https://archive.apache.org/dist/tomcat/tomcat-10/v10.0.8/bin/apache-tomcat-10.0.8.tar.gz
         dest: /home/jenkins
 
-    - name: unarchive tomcat
-      become: yes
-      unarchive:
+- name: unarchive tomcat
+  become: true
+  unarchive:
         src: /home/jenkins/apache-tomcat-10.0.8.tar.gz
         dest: /opt/tomcat/
         remote_src: yes
 
-    - name: Change ownership of tomcat directory
-      become: yes
-      file:
+- name: Change ownership of tomcat directory
+  become: true
+  file:
         path: /opt/tomcat/apache-tomcat-10.0.8
         owner: jenkins
         group: jenkins
         mode: 777
         state: directory
 
-    - name: create tomcat user.xml
-      become: yes
-      copy:
+- name: create tomcat user.xml
+  become: true
+  copy:
        content: |-
         <?xml version="1.0" encoding="UTF-8"?>
         <tomcat-users xmlns="http://tomcat.apache.org/xml"
@@ -60,31 +60,31 @@
         </tomcat-users>
        dest: /opt/tomcat/apache-tomcat-10.0.8/conf/tomcat-users.xml
 
-    - name: update context.xml
-      become: yes
-      lineinfile:
+- name: update context.xml
+  become: true
+  lineinfile:
        path: /opt/tomcat/apache-tomcat-10.0.8/webapps/manager/META-INF/context.xml
        regexp: '{{item.from}}'
        line: '{{item.To}}'
 
-      with_items:
+       with_items:
         - { from: '<Valve className="org.apache.catalina.valves.RemoteAddrValve"', To: '<!-- <Valve className="org.apache.catalina.valves.RemoteAddrValve"' }
         - { from: 'allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />', To: 'allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->' }
 
-    - name: update context.xml
-      become: yes
-      lineinfile:
+- name: update context.xml
+  become: true
+  lineinfile:
        path: /opt/tomcat/apache-tomcat-10.0.8/webapps/host-manager/META-INF/context.xml
        regexp: '{{item.from}}'
        line: '{{item.To}}'
 
-      with_items:
+       with_items:
         - { from: '<Valve className="org.apache.catalina.valves.RemoteAddrValve"', To: '<!--<Valve className="org.apache.catalina.valves.RemoteAddrValve"'}
         - { from: 'allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />', To: 'allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->'}
 
-    - name: Creating a service file
-      become: yes
-      copy:
+- name: Creating a service file
+  become: true
+  copy:
        content: |-
         [Unit]
         Description=Tomcat
@@ -105,9 +105,9 @@
         WantedBy=multi-user.target
        dest: /etc/systemd/system/tomcat.service
 
-    - name: Start and Enable Tomcat on sever
-      become: yes
-      systemd:
+- name: Start and Enable Tomcat on sever
+  become: true
+  systemd:
         name: tomcat
         state: started
         daemon_reload: true
