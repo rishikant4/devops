@@ -86,7 +86,7 @@ pipeline {
             steps{
                  sshagent(['ansible']) {
                     script{
-                    sh 'ansiblePlaybook credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/deploy.yml''
+                    sh 'ansiblePlaybook credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/deploy.yml', sudoUser: 'jenkins''
                     }
                  }
             }
