@@ -94,7 +94,7 @@ pipeline {
 		stage('Download Artifact and Deploy on tomcat server using Ansible'){
             steps{
                     script{
-                    ansiblePlaybook credentialsId: 'jenkins', installation: 'ansible', inventory: 'inventory', playbook: 'deploy.yml'
+                    ansiblePlaybook credentialsId: 'jenkins', installation: 'ansible', inventory: 'inventory.yml', playbook: 'deploy.yml'
                     }
             }
         } 
