@@ -86,7 +86,7 @@ pipeline {
             steps{
                  sshagent(['ansible']) {
                     script{
-                    sh 'ansiblePlaybook credentialsId: 'ansible', installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/deploy.yml', sudo: true, sudoUser: 'jenkins''
+                    sh 'ansiblePlaybook credentialsId: 'ansible', installation: 'ansible', inventory: 'inventory.yml', playbook: 'deploy.yml', sudo: true, sudoUser: 'jenkins''
                     }
                  }
             }
