@@ -82,13 +82,20 @@ pipeline {
                 }
             }
         } 
-		 stage('Pull Artifact and Deploy on tomcat server using Ansible'){
+		/* stage('Pull Artifact and Deploy on tomcat server using Ansible'){
             steps{
                  sshagent(['ansible']) {
                     script{
                     sh 'ansiblePlaybook credentialsId: 'ansible', installation: 'ansible', inventory: 'inventory.yaml', playbook: 'deploy.yml', sudo: true, sudoUser: 'jenkins''
                     }
                  }
+            }
+        } */
+		stage('Download Artifact and Deploy on tomcat server using Ansible'){
+            steps{
+                    script{
+                    ansiblePlaybook credentialsId: 'jenkins', installation: 'ansible', inventory: 'inventory', playbook: 'deploy.yml'
+                    }
             }
         } 
 }
