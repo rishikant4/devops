@@ -1,0 +1,14 @@
+- name: install tomcat and copy artifact
+hosts: all
+tasks:
+- name: import tomcat role
+import_role:
+name: install_tomcat
+
+- name: import copy artifact role
+import_role:
+name: pull_artifacts
+
+- name: restart tomcat service
+import_role:
+name: restart_tomcat
