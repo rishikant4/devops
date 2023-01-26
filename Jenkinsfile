@@ -11,6 +11,7 @@ pipeline {
 		
 	def sonar_cred = 'sonar'
         def code_analysis = 'mvn clean install sonar:sonar'
+	def dcoker_cred='docker_cred'
 		
 	def nex_cred = 'nexus'
         def grp_ID = 'com.example'
