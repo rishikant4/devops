@@ -1,6 +1,11 @@
 pipeline {
 	agent any
 	environment {
+	PROJECT_ID = 'calm-seeker-375715'
+        CLUSTER_NAME = 'gke-cluster'
+        LOCATION = 'us-central1-c'
+        CREDENTIALS_ID = 'My First Project'
+		
 	def git_branch = 'master'
 	def git_url = 'https://github.com/rishikant4/devops.git'
 	
@@ -113,5 +118,17 @@ pipeline {
 				}
 			}
 		}
+		stage('Deploy to GKE') {
+            steps{
+                sh "sed -i 's/demoapp:latest/demoapp:${env.BUILD_ID}/g' deployment.yaml"
+                step([$class: 'KubernetesEngineBuilder', 
+		      projectId: env.PROJECT_ID, 
+		      clusterName: env.CLUSTER_NAME, 
+		      location: env.LOCATION, 
+		      manifestPattern: 'deployment.yaml', 
+		      credentialsId: env.CREDENTIALS_ID, 
+		      verifyDeployments: true])
+            }
+        }
 }
 }
