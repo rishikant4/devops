@@ -5,9 +5,7 @@ metadata:
   labels:
     app: hello
 spec:
-  replicas: 2
-  strategy:
-    type: Recreate
+  replicas: 1
   selector:
     matchLabels:
       app: hello
@@ -16,11 +14,10 @@ spec:
     metadata:
       labels:
         app: hello
-        tier: hello
     spec:
       containers:
         - name: hello
-          image: rishi236/demoapp:latest
+          image: rishi236/hello:latest
           imagePullPolicy: Always
           ports:
           - containerPort: 5000
