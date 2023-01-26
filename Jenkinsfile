@@ -97,7 +97,7 @@ pipeline {
                  }
             }
         } */
-		stage('Docker Image Build'){
+		/*stage('Docker Image Build'){
 			steps{
 				script{
 					sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID .'
@@ -117,8 +117,8 @@ pipeline {
 					}
 				}
 			}
-		}
-		stage('Deploy to GKE') {
+		}*/
+		/*stage('Deploy to GKE') {
             steps{
                 sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployment.yaml"
                 step([$class: 'KubernetesEngineBuilder', 
@@ -129,6 +129,36 @@ pipeline {
 		      credentialsId: env.CREDENTIALS_ID, 
 		      verifyDeployments: true])
             }
+        }*/
+		stage('Docker build'){
+        steps{
+            script{
+                sh 'docker build -t rishi236/hello:0.1 . '
+            }
         }
+       }
+       stage('Docker login and push'){
+        steps{
+            withCredentials([string(credentialsId: 'docker_creds', variable: 'docker')]) {
+            sh 'docker login -u rishi236 -p ${docker}'
+
+            sh 'docker push rishi236/hello:0.1'
+        }
+
+       }
+       }
+		stage('Deploy to gke'){
+        steps{
+            
+            step([$class: 'KubernetesEngineBuilder', 
+		projectId: env.PROJECT_ID, 
+		clusterName: env.CLUSTER_NAME,
+		 location: env.LOCATION, 
+		manifestPattern: 'deployment.yaml', 
+		credentialsId: env.CREDENTIALS_ID,
+		 verifyDeployments: true])
+		   echo "Deployment Finished ..."
+        }
+       }
 }
 }
