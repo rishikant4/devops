@@ -2,7 +2,7 @@ pipeline {
 	agent any
 	environment {
 	PROJECT_ID = 'calm-seeker-375715'
-        CLUSTER_NAME = 'gke-cluster'
+        CLUSTER_NAME = 'gke'
         LOCATION = 'us-central1-c'
         CREDENTIALS_ID = 'My First Project'
 		
@@ -20,7 +20,7 @@ pipeline {
 		
 	def nex_cred = 'nexus'
         def grp_ID = 'com.example'
-        def nex_url = '3.110.183.47:8081'
+        def nex_url = '15.206.148.0:8081'
         def nex_ver = 'nexus3'
         def proto = 'http'
 	}
@@ -105,8 +105,8 @@ pipeline {
 					sh 'docker image tag $JOB_NAME:v1.$BUILD_ID rishi236/$JOB_NAME:latest'
 				}
 			}
-		}
-		stage('Push Image to the DockerHub'){
+		}*/
+		/*stage('Push Image to the DockerHub'){
 			steps{
 				script{
 					withCredentials([string(credentialsId: 'docker_creds', variable: 'docker')]) {
