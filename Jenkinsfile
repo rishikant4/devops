@@ -11,7 +11,7 @@ pipeline {
 		
 	def sonar_cred = 'sonar'
         def code_analysis = 'mvn clean install sonar:sonar'
-	def dcoker_cred='docker_cred'
+	def dcoker_cred='docker'
 		
 	def nex_cred = 'nexus'
         def grp_ID = 'com.example'
@@ -104,9 +104,9 @@ pipeline {
 		stage('Push Image to the DockerHub'){
 			steps{
 				script{
-					withCredentials([string(credentialsId: 'docker_cred', variable: 'docker_hub_cred')]) {
+					withCredentials([string(credentialsId: 'docker_creds', variable: 'docker')]) {
 						
-                                            sh 'docker login -u rishi236 -p $(docker_cred)'
+                                            sh 'docker login -u rishi236 -p $(docker)'
 					    sh 'docker image push rishi236/$JOB_NAME:v1.$BUILD_ID'
 					    sh 'docker image push rishi236/$JOB_NAME:latest'
 					}
