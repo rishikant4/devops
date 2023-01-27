@@ -53,7 +53,7 @@ pipeline {
                 }
             }
 }
-		 stage('Static code scan & Quality Gate Status') {
+		/* stage('Static code scan & Quality Gate Status') {
             steps {
                 script {
                     withSonarQubeEnv(credentialsId: "${sonar_cred}") {
@@ -87,7 +87,7 @@ pipeline {
                     echo 'Artifact uploaded to nexus repository'
                 }
             }
-        } 
+        } */
 		/*stage('Pull Artifact and Deploy on tomcat server using Ansible'){
             steps{
                  sshagent(['ansible']) {
@@ -97,7 +97,7 @@ pipeline {
                  }
             }
         } */
-		/*stage('Docker Image Build'){
+		stage('Docker Image Build'){
 			steps{
 				script{
 					sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID .'
@@ -105,8 +105,8 @@ pipeline {
 					sh 'docker image tag $JOB_NAME:v1.$BUILD_ID rishi236/$JOB_NAME:latest'
 				}
 			}
-		}*/
-		/*stage('Push Image to the DockerHub'){
+		}
+		stage('Push Image to the DockerHub'){
 			steps{
 				script{
 					withCredentials([string(credentialsId: 'docker_creds', variable: 'docker')]) {
@@ -117,8 +117,8 @@ pipeline {
 					}
 				}
 			}
-		}*/
-		/*stage('Deploy to GKE') {
+		}
+		stage('Deploy to GKE') {
             steps{
                 sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployment.yaml"
                 step([$class: 'KubernetesEngineBuilder', 
@@ -129,8 +129,8 @@ pipeline {
 		      credentialsId: env.CREDENTIALS_ID, 
 		      verifyDeployments: true])
             }
-        }*/
-		stage('Docker build'){
+        }
+		/*stage('Docker build'){
         steps{
             script{
                 sh 'docker build -t rishi236/hello:0.1 . '
@@ -159,6 +159,6 @@ pipeline {
 		 verifyDeployments: true])
 		   echo "Deployment Finished ..."
         }
-       }
+       }*/
 }
 }
