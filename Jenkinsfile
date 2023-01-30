@@ -97,7 +97,7 @@ pipeline {
                  }
             }
         } */
-		stage('Docker Image Build'){
+		/*stage('Docker Image Build'){
 			steps{
 				script{
 					sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID .'
@@ -129,8 +129,8 @@ pipeline {
 		      credentialsId: env.CREDENTIALS_ID, 
 		      verifyDeployments: true])
             }
-        }
-		/*stage('Docker build'){
+        }*/
+		stage('Docker build'){
         steps{
             script{
                 sh 'docker build -t rishi236/hello:0.1 . '
@@ -159,7 +159,7 @@ pipeline {
 		 verifyDeployments: true])
 		   echo "Deployment Finished ..."
         }
-       }*/
+       }
 		/*stage("Deploy new image to Cloud Run"){
             steps{
                 sh "gcloud run deploy back-end --image  rishi236/hello:0.1 --platform=managed --region=us-central1-c --port=8000 --revision-suffix=${IMAGE_VERSION}"
