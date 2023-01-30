@@ -20,7 +20,7 @@ pipeline {
 		
 	def nex_cred = 'nexus'
         def grp_ID = 'com.example'
-        def nex_url = '15.206.148.0:8081'
+        def nex_url = '15.207.222.241:8081'
         def nex_ver = 'nexus3'
         def proto = 'http'
 	}
