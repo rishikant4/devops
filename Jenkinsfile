@@ -160,5 +160,9 @@ pipeline {
 		   echo "Deployment Finished ..."
         }
        }*/
+		/*stage("Deploy new image to Cloud Run"){
+            steps{
+                sh "gcloud run deploy back-end --image  rishi236/hello:0.1 --platform=managed --region=us-central1-c --port=8000 --revision-suffix=${IMAGE_VERSION}"
+            }*/
 }
 }
